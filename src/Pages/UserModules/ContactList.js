@@ -16,7 +16,7 @@ const ContactList = () => {
     const url = `http://localhost:5000/contacts/${user?.email}`
 
 
-    const { data, isLoading } = useQuery('contacts', () => fetch(url).then(res => res.json()))
+    const { data, isLoading, refetch } = useQuery('contacts', () => fetch(url).then(res => res.json()))
 
 
     console.log(data)
@@ -39,6 +39,8 @@ const ContactList = () => {
                         data?.map((contact, index) => <Contact
                             key={index}
                             contact={contact}
+                            refetch={refetch}
+
                         ></Contact>)
                     }
                 </div>
