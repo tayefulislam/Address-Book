@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
     const [
@@ -11,6 +11,7 @@ const SignIn = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    const navigate = useNavigate()
 
     const handleLogin = (event) => {
 
@@ -18,8 +19,15 @@ const SignIn = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
 
+        console.log({ email, password })
+        signInWithEmailAndPassword(email, password)
 
 
+
+    }
+
+    if (user) {
+        navigate('/')
     }
 
     return (
