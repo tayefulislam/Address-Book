@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const AddNewContact = () => {
@@ -12,17 +13,42 @@ const AddNewContact = () => {
     const handleNewContact = (event) => {
         event.preventDefault()
 
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const number = event.target.number.value;
+        const address = event.target.address.value;
+        const intertByEmail = user?.email;
+        const serachKey = `${name} ${number} ${email}  ${address}`
+
         const newContact = {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            number: event.target.number.value,
-            address: event.target.address.value,
-            intertBy: user?.email
-
-
+            name, email, number, address, intertByEmail, serachKey
         }
         console.log(newContact)
+
+        const url = `http://localhost:5000/addNewContact`;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newContact)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data?.insertedId) {
+
+                    event.target.reset()
+                    toast.success("New Contact Saved")
+
+
+
+                }
+            })
     }
+
+
     return (
         <div>
 
@@ -104,16 +130,8 @@ const AddNewContact = () => {
 
                             </div>
 
-
-
-
                             <input className='btn  w-full max-w-xs' type="submit" value="Add" />
                         </form>
-
-
-
-
-
 
 
                     </div>

@@ -6,6 +6,8 @@ import Register from './Pages/Register/Register';
 
 import SignIn from './Pages/SignIn/SignIn';
 import Home from './Pages/Home/Home';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
       </Routes>
 
 
+      <ToastContainer />
 
     </div>
   );
