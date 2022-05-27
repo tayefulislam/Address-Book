@@ -1,19 +1,21 @@
 import React from 'react';
-import AddBulkContack from '../UserModules/AddBulkContack';
+import AddBulkContact from '../UserModules/AddBulkContact';
+
 import AddNewContact from '../UserModules/AddNewContact';
+import ContactList from '../UserModules/ContactList';
 
 
 const Home = () => {
 
 
+
+
+
     return (
-        <div>
-            <h1 className='text-center'>Welcome to Address Book</h1>
-            <AddBulkContack></AddBulkContack>
+        <div >
+            <h1 className='text-center text-2xl text-red-500'>Welcome to Address Book</h1>
+            <ContactList></ContactList>
 
-            <div className='flex justify-center items-center mb-10'>
-
-            </div>
 
         </div>
     );

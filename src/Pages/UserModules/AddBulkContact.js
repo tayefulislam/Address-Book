@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
-const AddBulkContack = () => {
+const AddBulkContact = () => {
 
     const [user, loading, error] = useAuthState(auth);
 
@@ -36,13 +36,37 @@ const AddBulkContack = () => {
 
     console.log(bulkContact)
 
+    const handleBulkSubmit = () => {
+
+        const url = `http://localhost:5000/addBulkContact`
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify(bulkContact)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.insertedCount > 0) {
+                    toast.success('Data Added Succesfuly')
+                    setBulkContact([])
+                }
+            })
+
+    }
+
 
 
 
     return (
         <div>
 
-            <h1 className='text-3xl lg:text-4xl font-bold text-center mb-2'>Add  Contact In Bulk</h1>
+            <h1 className='text-3xl lg:text-4xl font-bold text-center mb-2'>Bulk Contact List</h1>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 mb-10'>
                 {
@@ -61,7 +85,8 @@ const AddBulkContack = () => {
             </div>
 
             <div className='flex justify-center items-center mb-10'>
-                <button className='btn btn-error' disabled={bulkContact.length === 0}><span className='text-white'>Submit Bulk Contact</span></button>
+                <button onClick={handleBulkSubmit}
+                    className='btn btn-error' disabled={bulkContact?.length === 0}><span className='text-white'>Submit Bulk Contact</span></button>
 
             </div>
 
@@ -69,7 +94,7 @@ const AddBulkContack = () => {
             <div className='flex justify-center items-center mb-10'>
                 <div className="card w-96 bg-gray-200 shadow-xl">
                     <div className="card-body ">
-                        <h2 className="text-center text-2xl font-bold">Add Bulk Contact</h2>
+                        <h2 className="text-center text-2xl font-bold">Add  Contact In Bulk List</h2>
 
 
                         <form onSubmit={handleBulkContact}>
@@ -158,4 +183,4 @@ const AddBulkContack = () => {
     );
 };
 
-export default AddBulkContack;
+export default AddBulkContact;
