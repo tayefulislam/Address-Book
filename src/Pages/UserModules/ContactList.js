@@ -16,13 +16,14 @@ const ContactList = () => {
     const url = `http://localhost:5000/contacts/${user?.email}`
 
 
-    const { isLoading, data } = useQuery('contacts', () => fetch(url).then(res => res.json()))
-
-
-
+    const { data, isLoading } = useQuery('contacts', () => fetch(url).then(res => res.json()))
 
 
     console.log(data)
+
+    if (isLoading || !data) {
+        return <Loading></Loading>
+    }
 
 
 
@@ -31,15 +32,17 @@ const ContactList = () => {
         <div>
 
 
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 mb-10'>
+            {
+                data && <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 mb-10'>
 
-                {
-                    data?.map((contact, index) => <Contact
-                        key={index}
-                        contact={contact}
-                    ></Contact>)
-                }
-            </div>
+                    {
+                        data?.map((contact, index) => <Contact
+                            key={index}
+                            contact={contact}
+                        ></Contact>)
+                    }
+                </div>
+            }
 
 
 
