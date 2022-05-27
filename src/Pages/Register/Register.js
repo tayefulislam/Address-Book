@@ -1,16 +1,45 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Register = () => {
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+
+    let navigate = useNavigate();
+
+
+
 
 
 
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+
+        const { email, password, name } = data;
+        const displayName = name;
+
+        await createUserWithEmailAndPassword(email, password)
+        await updateProfile({ displayName })
+        console.log(data)
 
     };
+
+
+    if (user) {
+        navigate('/')
+    }
 
 
     return (
