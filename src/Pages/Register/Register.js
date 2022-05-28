@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import useToken from '../hooks/useToken';
 
 const Register = () => {
 
@@ -18,9 +19,7 @@ const Register = () => {
 
     let navigate = useNavigate();
 
-
-
-
+    const [token] = useToken(user);
 
 
 
@@ -37,7 +36,7 @@ const Register = () => {
     };
 
 
-    if (user) {
+    if (token) {
         navigate('/')
     }
 
