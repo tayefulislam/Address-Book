@@ -24,15 +24,18 @@ const Navbar = () => {
                         </div>
                     </label>
                     <ul tabIndex="0" className=" p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                        <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
-                        </li>
-                        <li><Link to='login'>Login</Link></li>
 
-                        <li><button onClick={() => signOut(auth)} className='btn btn-error btn-sm '> Sign Out</button></li>
+
+                        <li><Link to='newContact'>New Contact</Link></li>
+
+
+                        {
+                            user ? <li><button onClick={() => signOut(auth)} className='btn btn-error btn-sm mt-1 '> Sign Out</button></li> : <li><Link to='login'>Login</Link></li>
+                        }
+
+
+
+
                     </ul>
                 </div>
             </div>
