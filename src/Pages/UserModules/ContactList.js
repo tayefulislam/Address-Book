@@ -18,7 +18,6 @@ const ContactList = () => {
     const [page, setPage] = useState(0)
 
 
-
     useEffect(() => {
 
         fetch(`http://localhost:5000/contacts/${user?.email}?page=${page}&size=5`)
@@ -30,6 +29,7 @@ const ContactList = () => {
 
 
     }, [page, user])
+
 
 
     useEffect(() => {
@@ -51,8 +51,13 @@ const ContactList = () => {
     }
 
 
-    console.log(Math.ceil(contacts.length))
+    // console.log(Math.ceil(contacts.length))
 
+    if (loading) {
+
+        return <Loading></Loading>
+
+    }
 
 
 
@@ -68,11 +73,17 @@ const ContactList = () => {
                         contacts?.map((contact, index) => <Contact
                             key={index}
                             contact={contact}
+                            contacts={contacts}
+                            setContacts={setContacts}
 
 
                         ></Contact>)
                     }
                 </div>
+            }
+
+            {
+                contacts.length === 0 && <h1>No Contact Found</h1>
             }
 
 

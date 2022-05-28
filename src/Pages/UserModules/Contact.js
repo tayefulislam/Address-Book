@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Contact = ({ contact }) => {
+const Contact = ({ contact, contacts, setContacts }) => {
 
     const navigate = useNavigate()
 
@@ -29,6 +29,9 @@ const Contact = ({ contact }) => {
                     if (data?.deletedCount) {
 
                         toast.success('Item Deleted')
+
+                        const newList = contacts.filter(contact => contact._id !== id)
+                        setContacts(newList)
 
                     }
 
