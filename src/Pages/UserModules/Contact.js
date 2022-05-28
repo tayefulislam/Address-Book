@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Contact = ({ contact, refetch }) => {
+const Contact = ({ contact }) => {
 
     const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ const Contact = ({ contact, refetch }) => {
                     if (data?.deletedCount) {
 
                         toast.success('Item Deleted')
-                        refetch()
+
                     }
 
 

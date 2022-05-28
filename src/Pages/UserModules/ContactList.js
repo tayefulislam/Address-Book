@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import auth from '../../firebase.init';
@@ -7,23 +7,52 @@ import Contact from './Contact';
 
 const ContactList = () => {
 
+
+
+
     const [user, loading, error] = useAuthState(auth);
+    const [contacts, setContacts] = useState([]);
+    const [totalContacts, setTotalContacts] = useState([])
+
+
+    const [page, setPage] = useState(0)
 
 
 
+    useEffect(() => {
+
+        fetch(`http://localhost:5000/contacts/${user?.email}?page=${page}&size=5`)
+            .then(res => res.json())
+            .then(data => {
+                setContacts(data)
+
+            })
 
 
-    const url = `http://localhost:5000/contacts/${user?.email}`
+    }, [page, user])
 
 
-    const { data, isLoading, refetch } = useQuery('contacts', () => fetch(url).then(res => res.json()))
+    useEffect(() => {
+
+        fetch(`http://localhost:5000/contacts/${user?.email}`)
+            .then(res => res.json())
+            .then(data => {
+                setTotalContacts(data)
+
+            })
 
 
-    console.log(data)
+    }, [user])
 
-    if (isLoading || !data) {
-        return <Loading></Loading>
+
+    const selectPage = (number) => {
+        setPage(number)
+
     }
+
+
+    console.log(Math.ceil(contacts.length))
+
 
 
 
@@ -33,13 +62,13 @@ const ContactList = () => {
 
 
             {
-                data && <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 mb-10'>
+                contacts && <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 mb-10'>
 
                     {
-                        data?.map((contact, index) => <Contact
+                        contacts?.map((contact, index) => <Contact
                             key={index}
                             contact={contact}
-                            refetch={refetch}
+
 
                         ></Contact>)
                     }
@@ -47,7 +76,32 @@ const ContactList = () => {
             }
 
 
+            {/* pagination */}
 
+            <div>
+
+
+
+
+
+                <div className='flex justify-center items-center'>
+                    <div class="btn-group">
+
+
+
+                        {
+                            [...Array(Math.ceil(totalContacts.length / 5)).keys()].map(number => <button
+                                className={page === number ? 'btn btn-active' : 'btn'}
+                                onClick={() => selectPage(number)} key={number}>{number + 1}</button>)
+                        }
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
 
 
         </div>
