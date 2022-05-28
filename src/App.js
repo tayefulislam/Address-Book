@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContactDetail from './Pages/UserModules/ContactDetail';
 import AddNewContact from './Pages/UserModules/AddNewContact';
+import RequireAuth from './Pages/RequireAuth/RequireAuth';
 
 function App() {
   return (
@@ -20,9 +21,9 @@ function App() {
       <Routes>
 
 
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/contactsDetails/:id" element={<ContactDetail></ContactDetail>}></Route>
-        <Route path="/newContact" element={<AddNewContact></AddNewContact>}></Route>
+        <Route path="/" element={<RequireAuth><Home></Home></RequireAuth>}></Route>
+        <Route path="/contactsDetails/:id" element={<RequireAuth><ContactDetail></ContactDetail></RequireAuth>}></Route>
+        <Route path="/newContact" element={<RequireAuth><AddNewContact></AddNewContact></RequireAuth>}></Route>
 
 
 

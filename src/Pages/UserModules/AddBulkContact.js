@@ -45,6 +45,9 @@ const AddBulkContact = () => {
             headers: {
                 'Content-Type': 'application/json',
 
+                authentication: `Bearer ${localStorage.getItem('accessToken')}`
+
+
             },
             body: JSON.stringify(bulkContact)
         })

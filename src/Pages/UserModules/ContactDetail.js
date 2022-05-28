@@ -9,7 +9,11 @@ const ContactDetail = () => {
 
     const url = `http://localhost:5000/contactsDetails/${id}`;
 
-    const { data, isLoading } = useQuery('contacts', () => fetch(url).then(res => res.json()))
+    const { data, isLoading } = useQuery('contacts', () => fetch(url, {
+        headers: {
+            authentication: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()))
 
     console.log(data)
 

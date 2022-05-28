@@ -20,6 +20,9 @@ const Contact = ({ contact, contacts, setContacts }) => {
 
             fetch(url, {
                 method: "POST",
+                headers: {
+                    authentication: `Bearer ${localStorage.getItem('accessToken')}`
+                }
             })
                 .then(res => res.json())
                 .then(data => {

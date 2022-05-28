@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import useToken from '../hooks/useToken';
@@ -16,10 +16,13 @@ const Register = () => {
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
+    //get jwt token
+    const [token] = useToken(user);
+
 
     let navigate = useNavigate();
-
-    const [token] = useToken(user);
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
 
 
 
@@ -37,7 +40,7 @@ const Register = () => {
 
 
     if (token) {
-        navigate('/')
+        navigate(from, { replace: true });
     }
 
 

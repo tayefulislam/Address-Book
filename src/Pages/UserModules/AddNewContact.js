@@ -30,7 +30,10 @@ const AddNewContact = () => {
         fetch(url, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+
+                authentication: `Bearer ${localStorage.getItem('accessToken')}`
+
             },
             body: JSON.stringify(newContact)
         })

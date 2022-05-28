@@ -20,7 +20,12 @@ const ContactList = () => {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/contacts/${user?.email}?page=${page}&size=5`)
+        fetch(`http://localhost:5000/contacts/${user?.email}?page=${page}&size=5`, {
+            headers: {
+                authentication: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+
+        })
             .then(res => res.json())
             .then(data => {
                 setContacts(data)
@@ -34,7 +39,11 @@ const ContactList = () => {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/contacts/${user?.email}`)
+        fetch(`http://localhost:5000/contacts/${user?.email}`, {
+            headers: {
+                authentication: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setTotalContacts(data)

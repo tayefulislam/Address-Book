@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <a className="btn btn-ghost normal-case text-xl">Address Book</a>
+                <Link to='/' className="btn btn-ghost normal-case text-xl">Address Book</Link>
             </div>
             <div className="flex-none gap-2">
 

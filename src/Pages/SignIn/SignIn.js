@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 
 const SignIn = () => {
@@ -12,9 +12,17 @@ const SignIn = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-    const navigate = useNavigate();
-
+    // set new token
     const [token] = useToken(user);
+
+
+    const navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+
+
+
+
 
     const handleLogin = (event) => {
 
@@ -30,7 +38,7 @@ const SignIn = () => {
     }
 
     if (token) {
-        navigate('/')
+        navigate(from, { replace: true });
     }
 
     return (
