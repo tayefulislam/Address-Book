@@ -7,7 +7,7 @@ const ContactDetail = () => {
 
     const { id } = useParams()
 
-    const url = `http://localhost:5000/contactsDetails/${id}`;
+    const url = `https://fathomless-bayou-46911.herokuapp.com/contactsDetails/${id}`;
 
     const { data, isLoading } = useQuery('contacts', () => fetch(url, {
         headers: {
@@ -29,10 +29,10 @@ const ContactDetail = () => {
 
 
             {
-                data && <div class="card w-96 bg-base-100 shadow-xl">
+                data && <div className="card w-96 bg-base-100 shadow-xl">
 
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">{data?.name}</h2>
+                    <div className="card-body items-center text-center">
+                        <h2 className="card-title">{data?.name}</h2>
                         <p>Number : {data?.number}</p>
                         <p>Email : {data?.email}</p>
                         <p>Address : {data?.address}</p>

@@ -20,7 +20,7 @@ const useToken = (user) => {
 
 
         if (email) {
-            const url = `http://localhost:5000/user/${email}`;
+            const url = `https://fathomless-bayou-46911.herokuapp.com/user/${email}`;
             axios.post(url)
 
                 .then(function (response) {

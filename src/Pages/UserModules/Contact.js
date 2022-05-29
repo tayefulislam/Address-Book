@@ -15,7 +15,7 @@ const Contact = ({ contact, contacts, setContacts }) => {
 
         if (deleteConfirm) {
 
-            const url = `http://localhost:5000/contact/delete/${id}`
+            const url = `https://fathomless-bayou-46911.herokuapp.com/contact/delete/${id}`
             console.log(url)
 
             fetch(url, {
@@ -49,18 +49,19 @@ const Contact = ({ contact, contacts, setContacts }) => {
     }
 
     return (
-        <div class="card w-fill bg-gray-100 shadow-xl m-2">
+        <div className="card w-fill bg-gray-100 shadow-xl m-2">
 
-            <div class="card-body py-3">
-                <h2 class="card-title">
+            <div className="card-body py-3">
+                <h2 className="card-title">
                     {contact?.name}
                 </h2>
                 <p>{contact?.number}</p>
-                <div class="card-actions justify-end">
-                    <div onClick={() => navigate(`/contactsDetails/${contact?._id}`)} class="badge badge-outline">Details</div>
-                    <div class="badge badge-outline">Update</div>
+                <div className="card-actions justify-end">
+                    <div onClick={() => navigate(`/contactsDetails/${contact?._id}`)} className="badge badge-outline">Details</div>
+                    <div onClick={() => navigate(`/updateContact/${contact?._id}`)}
+                        className="badge badge-outline">Update</div>
                     <div onClick={() => handleDelete(contact?._id)}
-                        class="badge badge-outline">Delete</div>
+                        className="badge badge-outline">Delete</div>
                 </div>
             </div>
 

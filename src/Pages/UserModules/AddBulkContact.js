@@ -38,7 +38,7 @@ const AddBulkContact = () => {
 
     const handleBulkSubmit = () => {
 
-        const url = `http://localhost:5000/addBulkContact`
+        const url = `https://fathomless-bayou-46911.herokuapp.com/addBulkContact`
 
         fetch(url, {
             method: "POST",
@@ -74,9 +74,9 @@ const AddBulkContact = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 mb-10'>
                 {
 
-                    bulkContact?.map(contact => <div class="card w-full  bg-neutral text-neutral-content ">
-                        <div class="card-body items-center text-center py-1">
-                            <h2 class="card-title">{contact?.name}</h2>
+                    bulkContact?.map(contact => <div className="card w-full  bg-neutral text-neutral-content ">
+                        <div className="card-body items-center text-center py-1">
+                            <h2 className="card-title">{contact?.name}</h2>
                             <p>{contact?.number}</p>
                             <p>{contact?.email}</p>
                             <p>{contact?.address}</p>

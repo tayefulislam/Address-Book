@@ -20,7 +20,7 @@ const ContactList = () => {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/contacts/${user?.email}?page=${page}&size=5`, {
+        fetch(`https://fathomless-bayou-46911.herokuapp.com/contacts/${user?.email}?page=${page}&size=5`, {
             headers: {
                 authentication: `Bearer ${localStorage.getItem('accessToken')}`
             }
@@ -39,7 +39,7 @@ const ContactList = () => {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/contacts/${user?.email}`, {
+        fetch(`https://fathomless-bayou-46911.herokuapp.com/contacts/${user?.email}`, {
             headers: {
                 authentication: `Bearer ${localStorage.getItem('accessToken')}`
             }
@@ -105,7 +105,7 @@ const ContactList = () => {
 
 
                 <div className='flex justify-center items-center'>
-                    <div class="btn-group">
+                    <div className="btn-group">
 
 
 

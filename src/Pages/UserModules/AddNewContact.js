@@ -25,7 +25,7 @@ const AddNewContact = () => {
         }
         console.log(newContact)
 
-        const url = `http://localhost:5000/addNewContact`;
+        const url = `https://fathomless-bayou-46911.herokuapp.com/addNewContact`;
 
         fetch(url, {
             method: "POST",

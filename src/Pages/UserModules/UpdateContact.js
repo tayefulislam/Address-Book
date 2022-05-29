@@ -1,13 +1,34 @@
-import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import Loading from '../Shared/Loading/Loading';
+
 
 
 const UpdateContact = () => {
     const [user, loading, error] = useAuthState(auth);
     const { id } = useParams()
+
+    const url = `https://fathomless-bayou-46911.herokuapp.com/contactsDetails/${id}`
+
+    const { isLoading, data, refetch } = useQuery('updateContact', () => fetch(url, {
+        headers: {
+
+            authentication: `Bearer ${localStorage.getItem('accessToken')}`
+
+        }
+    }).then(res => res.json()))
+
+
+    if (isLoading || loading) {
+        return <Loading></Loading>
+    }
+
+
+
+
     const handleUpdateContact = (event) => {
         event.preventDefault()
 
@@ -23,7 +44,7 @@ const UpdateContact = () => {
         }
         console.log(updateContact)
 
-        const url = `http://localhost:5000/updateContact/${id}`;
+        const url = `https://fathomless-bayou-46911.herokuapp.com/updateContact/${id}`;
 
         fetch(url, {
             method: "POST",
@@ -38,16 +59,20 @@ const UpdateContact = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if (data?.insertedId) {
-
-                    event.target.reset()
-                    toast.success("New Contact Saved")
-
-
-
+                if (data.modifiedCount === 0) {
+                    toast.error("Your Can't Update Data Without Changing any thing")
+                    refetch()
                 }
+
+                if (data.modifiedCount > 0) {
+                    toast.success("Contact Details Updated")
+                    refetch()
+                }
+
+
             })
     }
+
 
 
     return (
@@ -73,6 +98,7 @@ const UpdateContact = () => {
                                     className="input input-bordered w-full max-w-xs"
                                     name='name'
                                     required
+                                    defaultValue={data?.name}
 
 
 
@@ -92,6 +118,7 @@ const UpdateContact = () => {
                                     placeholder="Email"
                                     className="input input-bordered w-full max-w-xs"
                                     name='email'
+                                    defaultValue={data?.email}
 
 
                                 />
@@ -109,6 +136,7 @@ const UpdateContact = () => {
                                     className="input input-bordered w-full max-w-xs"
                                     name='number'
                                     required
+                                    defaultValue={data?.number}
 
                                 />
 
@@ -126,12 +154,13 @@ const UpdateContact = () => {
                                     className="input input-bordered w-full max-w-xs"
                                     name='address'
                                     required
+                                    defaultValue={data?.address}
 
                                 />
 
                             </div>
 
-                            <input className='btn  w-full max-w-xs' type="submit" value="Add" />
+                            <input className='btn  w-full max-w-xs' type="submit" value="Update" />
                         </form>
 
 
